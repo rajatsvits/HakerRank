@@ -1,0 +1,209 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    long int i,j,k,l,n,ctr=0,ptr=0,q;
+    cin>>n;
+    long int a[n],b[n];
+    for(i=0;i<n;i++)
+    {
+        cin>>a[i];
+        if(i>0&&a[i]<a[i-1])
+        {
+           ctr++;
+            if(ctr==1)
+                l=i;
+            if(ctr==2)
+                k=i;
+            if(ctr>2)
+                k=i;
+        }
+        
+    }
+   // cout<<"Ctr="<<ctr<<endl;
+    //cout<<"l="<<l<<endl;
+    //cout<<"k="<<k<<endl;
+    if(ctr==0)
+        cout<<"yes";
+    else if(ctr==1&&n==2)
+    {
+
+        cout<<"yes"<<endl;
+        cout<<"swap "<<l<<" "<<l+1<<endl;
+    }
+    else if(ctr==1)
+    {  q=a[l];
+       a[l]=a[l-1];
+       a[l-1]=q;
+     for(i=0;i<n-1;i++)
+              {
+                  if(a[i]>a[i+1])
+                  {
+                      cout<<"no";
+                      goto h;
+                  }
+                
+              }
+              
+                       cout<<"yes"<<endl;
+                 cout<<"swap "<<l<<" "<<l+1<<endl;
+     h:
+     ;
+       
+    }
+    else 
+    {    
+        if(ctr==2)
+        {
+            i=a[l-1];
+            a[l-1]=a[k];
+            a[k]=i;
+              for(i=0;i<n-1;i++)
+              {
+                  if(a[i]>a[i+1])
+                  {
+                      cout<<"no";
+                      goto c;
+                  }
+                
+              }
+              
+                       cout<<"yes"<<endl;
+                 cout<<"swap "<<l<<" "<<k+1<<endl;
+                      
+                  
+            c:
+            ;
+        }
+        else
+        {
+             for(i=l-1;i<=k;i++)
+             {
+                  b[i]=a[i];
+             }
+             for(i=k,j=l-1;i>=l,j<=k;i--,j++)
+             {  
+                 a[i]=b[j];
+                  //cout<<a[i]<<endl;
+             }
+            
+             for(i=0;i<n-1;i++)
+              { // cout<<a[i]<<endl;
+                  if(a[i]>a[i+1])
+                  {
+                      cout<<"no";
+                      goto e;
+                  }
+                
+              }
+              
+                       cout<<"yes"<<endl;
+                 cout<<"reverse "<<l<<" "<<k+1<<endl;
+                      
+                  
+            e:
+            ;
+        }
+        
+        
+    }
+    
+    return 0;
+}
+
+/*
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        
+        int w=sc.nextInt();
+        long a[] =new long[w],c[] =new long[w];
+        
+        for(int i=0;i<w;i++)
+        {
+            a[i]=sc.nextInt();
+            c[i]=a[i];
+        }
+        Arrays.sort(c);
+        int flag=0;
+        int aa=0;
+        
+        for(int i=0;i<w-1;i++)
+        {
+            if(a[i]>a[i+1])
+            {
+               
+                flag=1;
+                break;
+            }
+        }
+        
+        if(flag==0)
+             System.out.println("no");
+        else if(flag==1) 
+        {
+            long swap=0;
+            int ix=0,ix2=1,ix3=1;
+
+            for(int i=1;i<w;i++)
+            {
+                if(a[i]<a[i-1]&&swap==0)
+                {
+                    swap++;
+                    ix=i-1;
+                    ix2=i;
+                }
+                else if(a[i]<a[i-1]&&swap==1)
+                {
+                    swap++;
+                    ix2=i;
+                }
+                else if(a[i]<a[i-1]&&swap>1)
+                {
+                    ix3=i;
+                    flag=2;
+                    //break;
+                }
+            }
+            if(flag==1)
+            {
+                long temp=a[ix];
+                a[ix]=a[ix2];
+                a[ix2]=temp;
+                if(Arrays.equals(c,a))
+                {
+                    System.out.println("yes\nswap "+(ix+1)+" "+(ix2+1));
+                    flag=3;
+                }
+
+             }
+            //System.out.println(ix+" "+ix2 +" "+Arrays.equals(c,a));
+            
+
+             if(flag==2)
+             {
+                 Arrays.sort(a,ix,ix3+1);
+                 if(Arrays.equals(c,a))
+                 {
+                     System.out.println("yes\nreverse "+(ix+1)+" "+(ix3+1));
+                    flag=3;
+                 }
+             }
+             else if(flag!=3)
+             {
+                  System.out.println("no");
+             }
+        }
+    }
+}*/
